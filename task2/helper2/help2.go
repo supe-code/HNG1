@@ -3,8 +3,10 @@ package helper2
 import (
 	"context"
 	"strconv"
+	"os"
 	gogpt "github.com/sashabaranov/go-gpt3"
 	"strings"
+	"fmt"
 )
 
 type Data struct{
@@ -33,7 +35,7 @@ func Multiplication(x,y int)int{
 	return x*y
 }
 func GPTVal(prompt string) (int,error){
-	c := gogpt.NewClient("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")
+	c := gogpt.NewClient(os.Getenv("open-key"))
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model: gogpt.GPT3TextDavinci001,
@@ -51,7 +53,7 @@ func GPTVal(prompt string) (int,error){
 	return p,nil
 }
 func GPTOpr(prompt string) (string,error){
-	c := gogpt.NewClient("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")
+	c := gogpt.NewClient(os.Getenv("open-key"))
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model: gogpt.GPT3TextDavinci001,
@@ -64,5 +66,6 @@ func GPTOpr(prompt string) (string,error){
 	if err != nil {
 		return "",err
 	}
+	fmt.Println(resp.Choices[0].Text)
 	return strings.Trim(resp.Choices[0].Text,"\n"),err
 }
