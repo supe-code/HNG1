@@ -2,11 +2,12 @@ package helper2
 
 import (
 	"context"
-	"strconv"
-	"os"
-	gogpt "github.com/sashabaranov/go-gpt3"
-	"strings"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
+
+	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
 type Data struct{
@@ -66,6 +67,6 @@ func GPTOpr(prompt string) (string,error){
 	if err != nil {
 		return "",err
 	}
-	fmt.Println(resp.Choices[0].Text)
+	fmt.Println(os.Getenv("open-key"))
 	return strings.Trim(resp.Choices[0].Text,"\n"),err
 }
