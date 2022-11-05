@@ -2,11 +2,9 @@ package helper2
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
-
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
@@ -22,6 +20,7 @@ type Result struct{
 	SlackUsername string `json:"slackUsername"`
 	Result int `json:"result"`
 	OperationType string `json:"operation_type"`
+	Key string `json:"key,omitempty"`
 }
 
 var Res Result = Result{SlackUsername: "Arigbede Jacob"}
@@ -67,6 +66,5 @@ func GPTOpr(prompt string) (string,error){
 	if err != nil {
 		return "",err
 	}
-	fmt.Println(os.Getenv("open-key"))
 	return strings.Trim(resp.Choices[0].Text,"\n"),err
 }
