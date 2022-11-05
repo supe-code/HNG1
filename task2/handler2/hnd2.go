@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 )
 
 func Response(w http.ResponseWriter, r *http.Request){
@@ -21,7 +20,6 @@ func Response(w http.ResponseWriter, r *http.Request){
 		val:= help.Addition(req.X,req.Y)
 		res.Result = val
 		res.OperationType = "addition"
-		res.Key = os.Getenv("open-key")
 	case "subtraction":
 		val:= help.Subtraction(req.X,req.Y)
 		res.Result = val

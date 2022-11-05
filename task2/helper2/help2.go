@@ -6,7 +6,17 @@ import (
 	"strconv"
 	"strings"
 	gogpt "github.com/sashabaranov/go-gpt3"
+	"github.com/joho/godotenv"
+	"log"
 )
+
+func init(){
+	err := godotenv.Load(".env")
+
+	if err != nil {
+	  log.Fatalf("Error loading .env file")
+	}
+}
 
 type Data struct{
 	Operation string `json:"operation_type"`
@@ -20,7 +30,6 @@ type Result struct{
 	SlackUsername string `json:"slackUsername"`
 	Result int `json:"result"`
 	OperationType string `json:"operation_type"`
-	Key string `json:"key,omitempty"`
 }
 
 var Res Result = Result{SlackUsername: "Arigbede Jacob"}
@@ -35,7 +44,7 @@ func Multiplication(x,y int)int{
 	return x*y
 }
 func GPTVal(prompt string) (int,error){
-	c := gogpt.NewClient(os.Getenv("open-key"))
+	c := gogpt.NewClient(os.Getenv("KEY"))
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model: gogpt.GPT3TextDavinci001,
@@ -53,7 +62,7 @@ func GPTVal(prompt string) (int,error){
 	return p,nil
 }
 func GPTOpr(prompt string) (string,error){
-	c := gogpt.NewClient(os.Getenv("open-key"))
+	c := gogpt.NewClient(os.Getenv("Key"))
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model: gogpt.GPT3TextDavinci001,
